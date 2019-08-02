@@ -3,5 +3,5 @@
 [ext_resource path="res://bin/liblesspass.gdnlib" type="GDNativeLibrary" id=1]
 
 [resource]
-class_name = "Simple"
+class_name = "LessPass"
 library = ExtResource( 1 )

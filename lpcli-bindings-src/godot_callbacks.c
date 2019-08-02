@@ -1,5 +1,12 @@
 #include <gdnative_api_struct.gen.h>
 
+#define LP_STATIC
+#define LP_IMPLEMENTATION
+#define PBKDF2_SHA256_STATIC
+#include "lp.h"
+
+#include "lpcli.h"
+
 #include <string.h>
 
 // godot callbacks are in structs and modular
@@ -7,14 +14,17 @@ const godot_gdnative_core_api_struct *api = NULL;
 const godot_gdnative_ext_nativescript_api_struct *nativescript_api = NULL;
 
 // library constructor
-void *simple_constructor(godot_object *p_instance, void *p_method_data);
+void *LessPass_constructor(godot_object *p_instance, void *p_method_data);
 
 // library destructor
-void simple_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data);
+void LessPass_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data);
 
 // exported function
-godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
-                              void *p_user_data, int p_num_args, godot_variant **p_args);
+godot_variant LessPass_get_data(godot_object *p_instance, void *p_method_data,
+                                void *p_user_data, int p_num_args, godot_variant **p_args);
+
+godot_variant LessPass_get_error(godot_object *p_instance, void *p_method_data,
+                                void *p_user_data, int p_num_args, godot_variant **p_args);
 
 // called on library load by godot
 void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options)
@@ -48,49 +58,90 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle)
 {
     // creating new GDScript node in C
     godot_instance_create_func create = {NULL, NULL, NULL};
-    create.create_func = &simple_constructor;
+    create.create_func = &LessPass_constructor;
     godot_instance_destroy_func destroy = {NULL, NULL, NULL};
-    destroy.destroy_func = &simple_destructor;
-    nativescript_api->godot_nativescript_register_class(p_handle, "Simple", "Reference",
+    destroy.destroy_func = &LessPass_destructor;
+    nativescript_api->godot_nativescript_register_class(p_handle, "LessPass", "Reference",
                                                         create, destroy);
 
     // register method onto new node
     godot_instance_method get_data = {NULL, NULL, NULL};
-    get_data.method = &simple_get_data;
+    get_data.method = &LessPass_get_data;
     godot_method_attributes attributes = {GODOT_METHOD_RPC_MODE_DISABLED};
-    nativescript_api->godot_nativescript_register_method(p_handle, "Simple", "get_data",
+    nativescript_api->godot_nativescript_register_method(p_handle, "LessPass", "get_data",
                                                          attributes, get_data);
+    godot_instance_method get_error = {NULL, NULL, NULL};
+    get_error.method = &LessPass_get_error;
+    attributes.rpc_type = GODOT_METHOD_RPC_MODE_DISABLED;
+    nativescript_api->godot_nativescript_register_method(p_handle, "LessPass", "get_error", attributes,get_error);
+}
+
+typedef enum
+{
+    GODOT_LPCLI_OK,
+    GODOT_LPCLI_ZERO_LENGTH
+} GODOT_LPCLI_ERROR;
+
+const char *lcpli_error_strings[] = {
+    "ok",
+    "password of zero length returned"};
+
+const char *godot_lpcli_strerror(int godot_lpcli_errno)
+{
+    return lcpli_error_strings[godot_lpcli_errno];
 }
 
 // properties
 typedef struct user_data_struct
 {
     char data[256];
+    GODOT_LPCLI_ERROR err;
 } user_data_struct;
 
-void *simple_constructor(godot_object *p_instance, void *p_method_data)
+void *LessPass_constructor(godot_object *p_instance, void *p_method_data)
 {
     user_data_struct *user_data = api->godot_alloc(sizeof(user_data_struct));
     strcpy(user_data->data, "World from GDNative!");
-
+    user_data->err = GODOT_LPCLI_OK;
     return user_data;
 }
 
-void simple_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data)
+void LessPass_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data)
 {
     api->godot_free(p_user_data);
 }
 
-godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
-                              void *p_user_data, int p_num_args, godot_variant **p_args)
+godot_variant LessPass_get_error(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args)
+{
+    godot_variant ret;
+    user_data_struct *user_data = (user_data_struct *)p_user_data;
+
+    api->godot_variant_new_int(&ret, user_data->err);
+
+    return ret;
+}
+
+godot_variant LessPass_get_data(godot_object *p_instance, void *p_method_data,
+                                void *p_user_data, int p_num_args, godot_variant **p_args)
 {
     // everything must use variants
     godot_string data;
     godot_variant ret;
     user_data_struct *user_data = (user_data_struct *)p_user_data;
 
+    LP_CTX ctx;
+    LP_CTX_init(&ctx);
+
+    int gen_ret = LP_generate(&ctx, "test", "testing", "password");
+    if (gen_ret < 1)
+    {
+        user_data->err = GODOT_LPCLI_ZERO_LENGTH;
+    } else {
+        user_data->err = GODOT_LPCLI_OK;
+    }
+
     api->godot_string_new(&data);
-    api->godot_string_parse_utf8(&data, user_data->data);
+    api->godot_string_parse_utf8(&data, ctx.buffer);
     api->godot_variant_new_string(&ret, &data);
     api->godot_string_destroy(&data);
 
