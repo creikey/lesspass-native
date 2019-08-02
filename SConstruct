@@ -71,10 +71,11 @@ env.Append(CPPPATH=['.', godot_headers_path])
 env.Append(CPPPATH=['lpcli-bindings-src/'])
 sources = Glob('lpcli-bindings-src/*.c')
 
+# Generates help for the -h scons option.
+Help(opts.GenerateHelpText(env))
+
 library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
 
 Default(library)
 
-# Generates help for the -h scons option.
-Help(opts.GenerateHelpText(env))
 
