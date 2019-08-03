@@ -1,3 +1,10 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=true
+
 [entry]
 
 X11.64="res://bin/x11/libsimple.so"
@@ -5,10 +12,3 @@ X11.64="res://bin/x11/libsimple.so"
 [dependencies]
 
 X11.64=[  ]
-
-[general]
-
-singleton=false
-load_once=true
-symbol_prefix="godot_"
-reloadable=true
