@@ -135,6 +135,42 @@ godot_variant LessPass_get_data(godot_object *p_instance, void *p_method_data,
         return error_return;
     }
 
+    for (int i = 0; i < p_num_args; i++)
+    {
+        if (api->godot_variant_get_type(p_args[i]) != GODOT_VARIANT_TYPE_STRING)
+        {
+            godot_string error_string;
+            api->godot_string_new(&error_string);
+            api->godot_string_parse_utf8(&error_string, "Incorrect type for argument %d, expected string");
+            godot_variant error_variant;
+            api->godot_variant_new_string(&error_variant, &error_string);
+
+            godot_array format_values;
+
+            godot_variant argument_index_variant;
+            api->godot_variant_new_int(&argument_index_variant, i);
+
+            api->godot_array_new(&format_values);
+            api->godot_array_append(&format_values, &argument_index_variant);
+
+            godot_bool sprintf_error;
+            godot_string final_error_string;
+            api->godot_string_new(&final_error_string);
+            final_error_string = api->godot_string_sprintf(&error_string, &format_values, &sprintf_error);
+            godot_char_string final_error_string_cs = api->godot_string_utf8(&final_error_string);
+            const char *final_error_string_cc = api->godot_char_string_get_data(&final_error_string_cs);
+            LPCLI_ERROR(final_error_string_cc);
+
+            api->godot_string_destroy(&error_string);
+            api->godot_variant_destroy(&error_variant);
+            api->godot_variant_destroy(&argument_index_variant);
+            api->godot_array_destroy(&format_values);
+            api->godot_string_destroy(&final_error_string);
+
+            return error_return;
+        }
+    }
+
     // everything must use variants
     godot_string data;
     godot_variant ret;
