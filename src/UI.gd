@@ -2,8 +2,16 @@ extends CanvasLayer
 
 onready var lesspass_data = preload("res://bin/lesspass.gdns").new()
 
+func _ready():
+	get_tree().get_root().set_transparent_background(true)
+	OS.window_size = OS.get_screen_size(OS.get_current_screen())
+	OS.window_position = Vector2()
+
+func _process(delta):
+	OS.window_position = Vector2()
+
 func _on_GenerateButton_pressed():
-	var main_vbox_container = $PanelContainer/MarginContainer/MainVBoxContainer
+	var main_vbox_container = $MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer
 	var generate_button = main_vbox_container.get_node("PasswordPanel/PasswordHBox/GenerateButton")
 	var password_label = main_vbox_container.get_node("PasswordPanel/PasswordHBox/PasswordLabel")
 	if generate_button.text == "":
@@ -27,3 +35,6 @@ func _on_GenerateButton_pressed():
 		generate_button.icon = preload("res://copy-to-clipboard.svg")
 	else:
 		printerr("UNKNOWN ERROR")
+
+func exit():
+	get_tree().quit()
