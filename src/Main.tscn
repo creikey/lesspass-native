@@ -14,7 +14,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 0.5, 0.297302 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -26,12 +26,13 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 0.258816, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -1080 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI/UIDimmer:color")
 tracks/0/interp = 2
@@ -39,10 +40,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 1.001 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("UI")
@@ -51,7 +52,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -65,8 +66,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 2.21914, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, 1080 ) ]
 }
@@ -84,8 +85,6 @@ color = Color( 0, 0, 0, 0.705882 )
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 1080.0
-margin_bottom = 1080.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 custom_constants/margin_right = 200
@@ -97,14 +96,14 @@ script = ExtResource( 2 )
 [node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer"]
 margin_left = 200.0
 margin_top = 200.0
-margin_right = 400.0
-margin_bottom = 400.0
+margin_right = 1720.0
+margin_bottom = 880.0
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 193.0
-margin_bottom = 193.0
+margin_right = 1513.0
+margin_bottom = 673.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -113,36 +112,36 @@ custom_constants/margin_bottom = 20
 [node name="MainVBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/PanelContainer/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 166.0
-margin_bottom = 166.0
+margin_right = 1486.0
+margin_bottom = 646.0
 
 [node name="SiteName" type="LineEdit" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer"]
-margin_right = 146.0
+margin_right = 1466.0
 margin_bottom = 24.0
 placeholder_text = "Site"
 
 [node name="UserName" type="LineEdit" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer"]
 margin_top = 28.0
-margin_right = 146.0
+margin_right = 1466.0
 margin_bottom = 52.0
 placeholder_text = "Login"
 
 [node name="MasterPassword" type="LineEdit" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer"]
 margin_top = 56.0
-margin_right = 146.0
+margin_right = 1466.0
 margin_bottom = 80.0
 secret = true
 placeholder_text = "Master Password"
 
 [node name="PasswordPanel" type="PanelContainer" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer"]
 margin_top = 84.0
-margin_right = 146.0
+margin_right = 1466.0
 margin_bottom = 118.0
 
 [node name="PasswordHBox" type="HBoxContainer" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer/PasswordPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 139.0
+margin_right = 1459.0
 margin_bottom = 27.0
 
 [node name="GenerateButton" type="Button" parent="UI/MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer/PasswordPanel/PasswordHBox"]
@@ -161,7 +160,6 @@ size_flags_vertical = 6
 text = "password"
 
 [node name="UIDimmer" type="CanvasModulate" parent="UI"]
-color = Color( 1, 1, 1, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/enter = SubResource( 1 )

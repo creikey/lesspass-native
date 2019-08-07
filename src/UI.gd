@@ -34,7 +34,7 @@ func _on_GenerateButton_pressed():
 		password_label.text = result
 
 		generate_button.text = ""
-		generate_button.icon = preload("res://copy-to-clipboard.svg")
+		generate_button.icon = load("res://copy-to-clipboard.svg")
 	else:
 		printerr("UNKNOWN ERROR")
 

@@ -16,9 +16,9 @@
    id="svg8"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
    sodipodi:docname="lesspass-icon.svg"
-   inkscape:export-filename="/home/creikey/Documents/projects/lesspass-native/src/icon.png"
-   inkscape:export-xdpi="30.719999"
-   inkscape:export-ydpi="30.719999">
+   inkscape:export-filename="/home/creikey/Documents/projects/lesspass-native/src/start-splash.png"
+   inkscape:export-xdpi="245.75999"
+   inkscape:export-ydpi="245.75999">
   <defs
      id="defs2">
     <filter
@@ -121,9 +121,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2485129"
-     inkscape:cx="114.95441"
-     inkscape:cy="130.405"
+     inkscape:zoom="3.1798776"
+     inkscape:cx="100.51881"
+     inkscape:cy="69.525906"
      inkscape:document-units="px"
      inkscape:current-layer="g4570"
      showgrid="false"
@@ -160,7 +160,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -185,7 +185,7 @@
          inkscape:export-xdpi="30.719999"
          id="rect3044"
          d="m -107.67908,560.02698 c -5.63066,0.2699 -11.19305,2.56536 -15.5115,6.88381 l -49.8999,49.89989 c -9.2127,9.2127 -9.2127,24.04373 0,33.25642 l 49.8999,49.89991 c 9.2127,9.2127 24.043714,9.2127 33.256424,0 l 49.899914,-49.89991 c 9.2127,-9.21269 9.2127,-24.04372 0,-33.25642 l -49.899914,-49.89989 c -4.89425,-4.89425 -11.363504,-7.18969 -17.744924,-6.88381 z m 0,29.37089 c 0.37373,-0.0192 0.75373,0 1.13201,0 12.104734,0 21.997574,9.92342 21.997574,22.02815 0,10.06394 -6.85989,18.57846 -16.123404,21.17153 v 20.19248 h 6.088354 c 0.12336,0 0.21416,0.0909 0.21416,0.21416 v 10.03505 c 0,0.12326 -0.0909,0.21417 -0.21416,0.21417 h -6.088354 v 3.79373 h 6.088354 c 0.11844,-0.0343 0.21416,0.0909 0.21416,0.21417 v 10.00446 c 0,0.12325 -0.0909,0.24475 -0.21416,0.24475 h -6.088354 -7.64867 -4.13028 v -44.91297 c -9.26351,-2.59307 -16.12339,-11.1076 -16.12339,-21.17153 0,-11.72645 9.31069,-21.43464 20.89616,-22.02815 z m 1.13201,8.6277 c -7.43695,0 -13.36988,5.96348 -13.36988,13.40045 0,7.43702 5.93293,13.33928 13.36988,13.33928 7.436974,0 13.339284,-5.90226 13.339284,-13.33928 0,-7.43697 -5.90231,-13.40045 -13.339284,-13.40045 z"
-         style="display:inline;opacity:1;fill:#0275d8;fill-opacity:0.9758454;stroke:none;stroke-width:0.97902948"
+         style="display:inline;opacity:1;fill:#0275d8;fill-opacity:1;stroke:none;stroke-width:0.97902948"
          inkscape:export-filename="/home/creikey/Documents/projects/lesspass-native/src/icon.png" />
     </g>
   </g>

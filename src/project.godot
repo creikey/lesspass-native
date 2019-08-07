@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="Lesspass Native"
 run/main_scene="res://Main.tscn"
+boot_splash/image="res://start-splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.137255, 0.137255, 0.137255, 0 )
 config/icon="res://icon.png"
@@ -24,7 +25,8 @@ boot_splash/use_filter=false
 
 [display]
 
-window/size/width=600
+window/size/width=1920
+window/size/height=1080
 window/size/borderless=true
 window/size/always_on_top=true
 window/per_pixel_transparency/allowed=true
