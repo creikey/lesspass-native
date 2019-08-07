@@ -2,13 +2,19 @@ extends CanvasLayer
 
 onready var lesspass_data = preload("res://bin/lesspass.gdns").new()
 
+var current_monitor
+
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
-	OS.window_size = OS.get_screen_size(OS.get_current_screen())
-	OS.window_position = Vector2()
+	current_monitor = OS.get_current_screen()
+	OS.window_size = OS.get_screen_size(current_monitor)
 
 func _process(delta):
-	OS.window_position = Vector2()
+	# traverse monitors until at current
+	var end_window_position = Vector2()
+	for i in range(0, current_monitor):
+		end_window_position.x += OS.get_screen_size(i).x
+	OS.window_position = end_window_position
 
 func _on_GenerateButton_pressed():
 	var main_vbox_container = $MarginContainer/PanelContainer/MarginContainer/MainVBoxContainer
